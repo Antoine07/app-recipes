@@ -1,0 +1,38 @@
+<div class="col s8 main">
+  <ul *ngIf="recipes; else elseBlock" class="collection">
+    <li  (click)="onSelect(recipe)" class="collection-item avatar details" *ngFor="let recipe of recipes" [@recipeState]="recipe.state">
+      <img src="{{recipe.thumbnailUrl}}" alt="" class="circle">
+      <a >
+        <span class="title">{{ recipe.title }}</span>
+      </a>
+      <br>
+      <p>
+        étoile(s) : {{recipe.stars}}
+      </p>
+      <a href="#!" class="secondary-content">
+        <i class="material-icons">grade</i>
+      </a>
+    </li>
+  </ul>
+  <ng-template #elseBlock>
+    <ul>
+      <li class="collection-item avatar">
+        Nothing
+      </li>
+    </ul>
+  </ng-template>
+</div>
+<div class="col s4 sidebar" >
+  <div class="col s12 m12">
+    <div class="card" *ngIf="showRecipe">
+      <div class="card-image">
+        <img src="{{showRecipe.url}}">
+        <span class="card-title">{{showRecipe.stars}}</span>
+      </div>
+      <div class="card-content">
+        <p>{{ showRecipe.description }}</p>
+        <p *ngIf="showRecipe.author">{{ showRecipe.author }}</p>
+      </div>
+    </div>
+  </div>
+</div>
