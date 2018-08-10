@@ -1,4 +1,7 @@
 <div class="card" *ngIf="recipe">
+  <p *ngIf="notice">
+    <small>{{ notice }}</small>
+  </p>
   <div class="card-image">
     <img src="{{recipe.url}}">
     <span class="card-title">{{recipe.stars}}</span>

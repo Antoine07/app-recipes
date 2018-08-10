@@ -1,4 +1,5 @@
 <div class="col s8 main">
+  <p *ngIf="notice">{{ notice }}</p>
   <ul *ngIf="recipes; let odd=odd; else elseBlock" class="collection">
     <li  (click)="onSelect(recipe)" class="collection-item avatar details" *ngFor="let recipe of recipes" [@recipeState]="recipe.state">
       <img src="{{recipe.thumbnailUrl}}" alt="" class="circle">

@@ -1,14 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipes';
 import { MockRecipes } from './../mock-recipes';
-
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
+import {trigger,state,style,animate,transition} from '@angular/animations';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-recipes',
@@ -31,32 +25,25 @@ import {
     ])
   ]
 })
-export class RecipesComponent implements OnInit {
 
+export class RecipesComponent implements OnInit {
   recipes: Recipe[] = MockRecipes; // les données 
   showRecipe: Recipe | null; // afficher une recette
+  alignement: string = 'right';
+  // gestion des notices pour l'affichage du message
+  notice: string;
 
-  alignement : string = 'right';
+  constructor(private mS: MessageService) { }
 
-  constructor() { }
+  ngOnInit() {this.showRecipe = null;}
 
-  ngOnInit() {
-    this.showRecipe = null; // à l'initialisation du template après le constructor
-  }
-
-  // si on sélectionne une recette on change le state de la recette et on 
-  // assigne la valeur recipe à showRecipe pour l'afficher dans la sidebar
   onSelect(recipe: Recipe): void {
     recipe.toggleState();
-    let timer = null ;
-    this.showRecipe = recipe; 
-
-    // timer pour remettre le state initiale
-    timer = setInterval(() => {
-      recipe.toggleState();
+    this.showRecipe = recipe;
+    this.notice = this.mS.notice(); // notice
+    let timer = setInterval(() => {
+      recipe.toggleState(); 
       clearInterval(timer);
     }, 1000);
-
   }
-
 }
