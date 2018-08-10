@@ -1,0 +1,10 @@
+<div class="card" *ngIf="recipe">
+  <div class="card-image">
+    <img src="{{recipe.url}}">
+    <span class="card-title">{{recipe.stars}}</span>
+  </div>
+  <div class="card-content">
+    <p>{{ recipe.description }}</p>
+    <p *ngIf="recipe.author">{{ recipe.author }}</p>
+  </div>
+</div>

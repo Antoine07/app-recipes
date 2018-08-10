@@ -35,6 +35,9 @@ export class RecipesComponent implements OnInit {
 
   recipes: Recipe[] = MockRecipes; // les données 
   showRecipe: Recipe | null; // afficher une recette
+
+  alignement : string = 'right';
+
   constructor() { }
 
   ngOnInit() {
@@ -47,8 +50,6 @@ export class RecipesComponent implements OnInit {
     recipe.toggleState();
     let timer = null ;
     this.showRecipe = recipe; 
-
-    console.log(this.showRecipe);
 
     // timer pour remettre le state initiale
     timer = setInterval(() => {

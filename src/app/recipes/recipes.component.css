@@ -2,3 +2,9 @@
   .details{
     cursor: pointer;
   }
+
+  .collection .collection-item.avatar p{
+    margin: 2em 0;
+  }
+  .fair{ color :red ;}
+  .very-good{ background-color: antiquewhite;   }
