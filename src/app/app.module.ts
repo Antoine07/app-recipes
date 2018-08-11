@@ -8,16 +8,22 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 
+// form pour la méthode search
+import { SearchformComponent } from './searchform/searchform.component';
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
     RecipesComponent,
-    RecipeDetailsComponent
+    RecipeDetailsComponent,
+    SearchformComponent
   ],
   imports: [
     BrowserModule,
     // importer le module dans les imports => rendre dispo le module dans l'app
-    BrowserAnimationsModule 
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

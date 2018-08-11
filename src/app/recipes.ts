@@ -3,7 +3,7 @@
  */
 
 export class Recipe {
-    id?: number | string;
+    id?: number ;
     stars: number = 0;
     title: string;
     published_at: string;
