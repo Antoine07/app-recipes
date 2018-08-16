@@ -34,7 +34,7 @@ export const MockRecipes: Recipe[] = [
         }
     },
     {
-        id: 7,
+        id: 3,
         url: "http://placehold.it/600/92c952",
         thumbnailUrl: "http://placehold.it/150/92c952",
         stars: 32,
@@ -48,7 +48,7 @@ export const MockRecipes: Recipe[] = [
         }
     },
     {
-        id: 37,
+        id: 4,
         url: "http://placehold.it/600/92c952",
         thumbnailUrl: "http://placehold.it/150/92c952",
         stars: 2,
@@ -62,7 +62,7 @@ export const MockRecipes: Recipe[] = [
         }
     },
     {
-        id: 17,
+        id: 5,
         url: "http://placehold.it/600/92c952",
         thumbnailUrl: "http://placehold.it/150/92c952",
         stars: 2,
@@ -75,7 +75,7 @@ export const MockRecipes: Recipe[] = [
             this.state = this.state === 'active' ? 'inactive' : 'active';
         }
     },{
-        id: 18,
+        id: 6,
         url: "http://placehold.it/600/92c952",
         thumbnailUrl: "http://placehold.it/150/92c952",
         stars: 2,
@@ -89,7 +89,7 @@ export const MockRecipes: Recipe[] = [
         }
     }
     ,{
-        id: 22,
+        id: 7,
         url: "http://placehold.it/600/92c952",
         thumbnailUrl: "http://placehold.it/150/92c952",
         stars: 2,
@@ -103,7 +103,7 @@ export const MockRecipes: Recipe[] = [
         }
     }
     ,{
-        id: 23,
+        id: 8,
         url: "http://placehold.it/600/92c952",
         thumbnailUrl: "http://placehold.it/150/92c952",
         stars: 2,

@@ -11,13 +11,15 @@ import { RecipeDetailsComponent } from './recipe-details/recipe-details.componen
 // form pour la méthode search
 import { SearchformComponent } from './searchform/searchform.component';
 import { FormsModule } from '@angular/forms';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RecipesComponent,
     RecipeDetailsComponent,
-    SearchformComponent
+    SearchformComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

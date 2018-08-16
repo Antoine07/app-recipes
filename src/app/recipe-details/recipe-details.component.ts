@@ -20,6 +20,5 @@ export class RecipeDetailsComponent implements OnInit {
   // à l'initialisation et dès qu'un input rentre
   ngOnChanges(){
     this.notice = `nombre de clique(s) ${this.mS.count}`;
-    console.log(this.recipe); 
   }
 }

@@ -34,4 +34,19 @@ export class RecipesService {
 
     return results;
   }
+
+  count(): number {
+    return this.recipes.length || 0;
+  }
+
+  paginate(start: number, end: number): Recipe[] {
+
+    let recipes: Recipe[] = [];
+
+    for (let i = start; i < end + start; i++) {
+      if (this.recipes[i] != null) recipes.push(this.recipes[i]);
+    }
+
+    return recipes;
+  }
 }

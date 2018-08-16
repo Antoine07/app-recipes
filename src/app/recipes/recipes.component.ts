@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipes';
-// import { MockRecipes } from './../mock-recipes';
+import { MockRecipes } from './../mock-recipes';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { MessageService } from '../message.service';
 import { RecipesService } from '../recipes.service';
 
 import { NgForm } from '@angular/forms';
 
-class Comment{
-  content : string ;
-  constructor(content : string){ this.content = null ;}
+class Comment {
+  content: string;
+  constructor(content: string) { this.content = null; }
 }
 
 @Component({
@@ -36,19 +36,23 @@ class Comment{
 
 export class RecipesComponent implements OnInit {
 
-  comment : Comment = new Comment('');
+  comment: Comment = new Comment('');
 
-  recipes: Recipe[]; // les données 
+  recipes: Recipe[] = []; // les données 
   showRecipe: Recipe | null; // afficher une recette
   alignement: string = 'right';
   // gestion des notices pour l'affichage du message
   notice: string;
 
-  constructor(private mS: MessageService, private rS: RecipesService) { }
+  constructor(
+    private mS: MessageService,
+    private rS: RecipesService
+  ) { }
 
   ngOnInit() {
     this.showRecipe = null;
-    this.recipes = this.rS.getRecipes();
+    this.recipes = this.rS.paginate(0, 5);
+
   }
 
   onSelect(recipe: Recipe): void {
@@ -65,13 +69,17 @@ export class RecipesComponent implements OnInit {
     this.recipes = $event;
   }
 
-  comments : Comment[] = [];
+  comments: Comment[] = [];
 
-  onSubmit(form :NgForm){
+  onSubmit(form: NgForm) {
     // console.log(form); // référence au formulaire
 
     // on récupère le nom du champ comme suit 
     this.comments.push(form.value['content']);
+  }
+
+  changePage($event) {
+    this.recipes = this.rS.paginate($event.start, $event.limit);
   }
 
 }

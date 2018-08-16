@@ -1,0 +1,16 @@
+<ul class="pagination center-align">
+  <li [ngClass]="{'disabled' : currentPage == 1}" class="waves-effect">
+    <a >
+      <i (click)="previous()" class="material-icons">chevron_left</i>
+    </a>
+  </li>
+  <li [class.active]="currentPage==page" class="waves-effect" *ngFor="let page of pages">
+    <a (click)="selectedPage(page)" >{{ page }}</a>
+  </li>
+  <li [ngClass]="{'disabled' : currentPage == numberPages}" class="waves-effect" (click)="next()">
+    <a >
+      <i class="material-icons">chevron_right</i>
+    </a>
+  </li>
+
+</ul>

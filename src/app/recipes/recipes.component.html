@@ -21,13 +21,12 @@
       </div>
     </div>
   </div>
-
-
+  <app-pagination (changePage)="changePage($event)" ></app-pagination>
   <ul *ngIf="recipes; let odd=odd; else elseBlock" class="collection">
     <li (click)="onSelect(recipe)" class="collection-item avatar details" *ngFor="let recipe of recipes" [@recipeState]="recipe.state">
       <img src="{{recipe.thumbnailUrl}}" alt="" class="circle">
       <a>
-        <span class="title">{{ recipe.title }}</span>
+        <span class="title">{{ recipe.id }} {{ recipe.title }}</span>
       </a>
       <br>
       <p [align]="alignement">
@@ -38,6 +37,7 @@
       </a>
     </li>
   </ul>
+  <app-pagination  (changePage)="changePage($event)" ></app-pagination>
   <ng-template #elseBlock>
     <ul>
       <li class="collection-item avatar">
