@@ -1,0 +1,20 @@
+<h2 *ngIf="title_component">{{ title_component }}</h2>
+<ul *ngIf="comments; else elseBlock" class="collection">
+  <li class="collection-item avatar details" *ngFor="let comment of comments">
+    <span class="title">
+      <a routerLink="/comment/{{comment.id}}" routerLinkActive="active">
+        {{ comment.title }}
+      </a>
+    </span>
+    <a class="secondary-content">
+      <i class="material-icons">grade</i>
+    </a>
+  </li>
+</ul>
+<ng-template #elseBlock>
+  <ul>
+    <li class="collection-item avatar">
+      Nothing comments
+    </li>
+  </ul>
+</ng-template>

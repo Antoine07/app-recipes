@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RecipesService } from '../recipes.service';
 import { Recipe } from '../recipes';
 
+// définition de la pagination qui sera émit par le component à son parent
 class Paginate {
   start: number;
   limit: number;
@@ -14,18 +15,17 @@ class Paginate {
 })
 export class PaginationComponent implements OnInit {
 
-  @Input() recipes : Recipe[];
+  @Input() recipes: Recipe[];
   @Output() changePage: EventEmitter<Paginate> = new EventEmitter();;
 
-  pages: number[] = [];
-
-  itemsPerpage: number = 5;
+  pages: number[] = []; // numéro des pages
+  itemsPerpage: number = 5; // fixer le nombre de recettes par page
   totalItems: number = 0;
   numberPages: number = 0;
   currentPage: number;
 
   constructor(private rS: RecipesService) {
-   this.total(this.rS.count());
+    this.setParameters(this.rS.count()); // calcul des paramètres pour la pagination
   }
 
   ngOnInit() {
@@ -34,11 +34,17 @@ export class PaginationComponent implements OnInit {
     }
   }
 
-  ngOnChanges(){
-    
+  // non utilisé tout ce qui arrive du parent peut être récupérer ici
+  ngOnChanges() {
+
   }
 
-  total(num : number):void{
+  /**
+   * setParameters : définir les paramètres de la pagination
+   * 
+   * @param num 
+   */
+  setParameters(num: number): void {
     this.totalItems = num;
     this.numberPages = Math.ceil(this.totalItems / this.itemsPerpage);
     this.currentPage = 1;
@@ -50,7 +56,7 @@ export class PaginationComponent implements OnInit {
     } else {
       this.currentPage++;
     }
-    this.changePage.emit(this.paginate(this.currentPage));
+    this.changePage.emit(this.paginate(this.currentPage)); // émettre la page courante
   }
 
   previous() {
@@ -70,7 +76,7 @@ export class PaginationComponent implements OnInit {
   paginate(page: number): Paginate {
     let paginate = new Paginate;
 
-    paginate.start = (this.currentPage - 1) * this.itemsPerpage;
+    paginate.start = (page - 1) * this.itemsPerpage;
     paginate.limit = this.itemsPerpage;
 
     return paginate;

@@ -39,6 +39,12 @@ export class RecipesService {
     return this.recipes.length || 0;
   }
 
+  /**
+   * paginate méthode permettant de gérer la pagination
+   * 
+   * @param start 
+   * @param end 
+   */
   paginate(start: number, end: number): Recipe[] {
 
     let recipes: Recipe[] = [];

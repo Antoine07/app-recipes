@@ -1,17 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { RecipesComponent } from './recipes/recipes.component';
-
 // animation
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 
-// form pour la méthode search
+// Components
 import { SearchformComponent } from './searchform/searchform.component';
 import { FormsModule } from '@angular/forms';
 import { PaginationComponent } from './pagination/pagination.component';
+import { AppComponent } from './app.component';
+import { RecipesComponent } from './recipes/recipes.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
+import { CommentsComponent } from './comments/comments.component';
+import { CommentDetailsComponent } from './comment-details/comment-details.component';
+import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
+
+// routing et navigation
+import { RecipesRoutingModule } from './/recipes-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,13 +24,16 @@ import { PaginationComponent } from './pagination/pagination.component';
     RecipesComponent,
     RecipeDetailsComponent,
     SearchformComponent,
-    PaginationComponent
+    PaginationComponent,
+    SearchResultsComponent,
+    CommentsComponent,
+    CommentDetailsComponent,
   ],
   imports: [
     BrowserModule,
-    // importer le module dans les imports => rendre dispo le module dans l'app
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    RecipesRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

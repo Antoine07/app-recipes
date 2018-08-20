@@ -13,6 +13,7 @@ export class Recipe {
     thumbnailUrl?: string;
     state: string = 'inactive';
 
+    // gestion de l'animation
     toggleState() {
         this.state = this.state === 'active' ? 'inactive' : 'active';
     }

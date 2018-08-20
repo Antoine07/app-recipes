@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipes';
-import { MockRecipes } from './../mock-recipes';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { MessageService } from '../message.service';
 import { RecipesService } from '../recipes.service';
 
 import { NgForm } from '@angular/forms';
-
-class Comment {
-  content: string;
-  constructor(content: string) { this.content = null; }
-}
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommentsService } from '../comments.service';
+import { Comment } from '../comments';
 
 @Component({
   selector: 'app-recipes',
@@ -36,23 +33,27 @@ class Comment {
 
 export class RecipesComponent implements OnInit {
 
-  comment: Comment = new Comment('');
+  comment: Comment = new Comment('', '');
 
   recipes: Recipe[] = []; // les données 
   showRecipe: Recipe | null; // afficher une recette
   alignement: string = 'right';
   // gestion des notices pour l'affichage du message
   notice: string;
+  title_component: string;
 
   constructor(
     private mS: MessageService,
-    private rS: RecipesService
+    private rS: RecipesService,
+    private route: ActivatedRoute, // injecter le module
+    private cS: CommentsService,
+    private router: Router // router 
   ) { }
 
   ngOnInit() {
     this.showRecipe = null;
     this.recipes = this.rS.paginate(0, 5);
-
+    this.title_component = this.route.snapshot.data.title_component; // récupérez le titre 
   }
 
   onSelect(recipe: Recipe): void {
@@ -69,13 +70,14 @@ export class RecipesComponent implements OnInit {
     this.recipes = $event;
   }
 
-  comments: Comment[] = [];
-
   onSubmit(form: NgForm) {
-    // console.log(form); // référence au formulaire
+    let id = this.cS.comments.length + 1;
+    this.comment.content = form.value['content'];
+    this.comment.title = form.value['title'];;
+    this.comment.id = id;
+    this.cS.addCommment(this.comment);
 
-    // on récupère le nom du champ comme suit 
-    this.comments.push(form.value['content']);
+    this.router.navigate(['/comments']);
   }
 
   changePage($event) {

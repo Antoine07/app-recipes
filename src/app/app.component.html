@@ -2,18 +2,42 @@
   <div class="row header-nav">
     <div class="col s12">
       <nav>
-        <h1 class="header">
-          <a class="brand-logo home-title">{{ title }}</a>
-        </h1>
+        <div class="nav-wrapper">
+          <h1 class="header">
+            <a class="brand-logo home-title">{{ title }}</a>
+          </h1>
+          <a data-target="mobile-demo" class="sidenav-trigger">
+            <i class="material-icons">menu</i>
+          </a>
+          <ul class="right hide-on-med-and-down">
+            <li>
+              <a routerLink="/recipes" routerLinkActive="active">Recipes</a>
+            </li>
+            <li>
+              <a routerLink="/comments" routerLinkActive="active">Comments</a>
+            </li>
+          </ul>
+        </div>
+        <!-- .nav-wrapper -->
       </nav>
+      <ul class="sidenav" id="mobile-demo">
+        <li>
+          <a routerLink="/recipes" routerLinkActive="active">Recipes</a>
+        </li>
+        <li>
+          <a routerLink="/comments" routerLinkActive="active">Comments</a>
+        </li>
+      </ul>
     </div>
-    <!-- .header-nav -->
-    <div class="row wrapper content">
-      <div class="col s12">
-        <h2>
-          <small class="">{{ subtitle }}</small>
-        </h2>
-        <app-recipes></app-recipes>
-      </div>
-      <!-- .content -->
+    <!-- .col s12 -->
+  </div>
+  <!-- .header-nav -->
+  <div class="row wrapper content">
+    <div class="col s12">
+      <h2>
+        <small class="">{{ subtitle }}</small>
+      </h2>
+      <router-outlet></router-outlet>
     </div>
+  </div>
+  <!-- .content -->
