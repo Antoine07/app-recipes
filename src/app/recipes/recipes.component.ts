@@ -54,6 +54,8 @@ export class RecipesComponent implements OnInit {
     this.showRecipe = null;
     this.rS.paginate(0, 5).subscribe(recipes => this.recipes = recipes);
     this.title_component = this.route.snapshot.data.title_component; // récupérez le titre 
+
+    this.rS.getRecipes().subscribe(data => console.log(data[0].toggleState()))
   }
 
   onSelect(recipe: Recipe): void {

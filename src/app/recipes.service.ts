@@ -21,7 +21,7 @@ export class RecipesService {
         recipes.sort((a, b) => {
           return a.stars - b.stars;
         });
-
+        // ajouter la méthode toggleSStare
         recipes.map(recipe => recipe.toggleState = () => {
           recipe.state = recipe.state === 'active' ? 'inactive' : 'active';
         });
@@ -45,9 +45,11 @@ export class RecipesService {
 
     return this.http.get<Recipe[]>(this.recipesUrl).pipe(
       map(recipes => {
-
-        recipes.forEach(recipe => {
-          if (recipe.title.match(re).length == 1) results.push(recipe);
+        recipes.map(recipe => {
+          if (recipe.title.match(re)) {
+            recipe.toggleState = () => { recipe.state = recipe.state === 'active' ? 'inactive' : 'active'; }
+            results.push(recipe);
+          }
         });
 
         return results;
