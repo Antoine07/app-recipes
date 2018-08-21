@@ -52,13 +52,13 @@ export class RecipesComponent implements OnInit {
 
   ngOnInit() {
     this.showRecipe = null;
-    this.recipes = this.rS.paginate(0, 5);
+    this.rS.paginate(0, 5).subscribe(recipes => this.recipes = recipes);
     this.title_component = this.route.snapshot.data.title_component; // récupérez le titre 
   }
 
   onSelect(recipe: Recipe): void {
     recipe.toggleState();
-    this.showRecipe = this.rS.getRecipe(recipe.id);
+    this.rS.getRecipe(recipe.id).subscribe(recipe => this.showRecipe = recipe);
     this.notice = this.mS.notice(); // notice
     let timer = setInterval(() => {
       recipe.toggleState();
@@ -81,7 +81,7 @@ export class RecipesComponent implements OnInit {
   }
 
   changePage($event) {
-    this.recipes = this.rS.paginate($event.start, $event.limit);
+    this.rS.paginate($event.start, $event.limit).subscribe(recipes => this.recipes = recipes);
   }
 
 }

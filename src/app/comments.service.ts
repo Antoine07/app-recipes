@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-
-import { MockComments } from './mock-comments';
 import { Comment } from './comments';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentsService {
-  comments: Comment[] = MockComments; // récupération des données d'exemple
+  comments: Comment[] = []; // récupération des données d'exemple
+  commentsUrl = './comments.json';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getComments(): Comment[] {
     return this.comments;

@@ -25,13 +25,15 @@ export class PaginationComponent implements OnInit {
   currentPage: number;
 
   constructor(private rS: RecipesService) {
-    this.setParameters(this.rS.count()); // calcul des paramètres pour la pagination
   }
 
   ngOnInit() {
-    for (let i = 1; i < this.numberPages + 1; i++) {
-      this.pages.push(i);
-    }
+    this.rS.count().subscribe(count => {
+      this.setParameters(count);
+      for (let i = 1; i < this.numberPages + 1; i++) {
+        this.pages.push(i);
+      }
+    });
   }
 
   // non utilisé tout ce qui arrive du parent peut être récupérer ici

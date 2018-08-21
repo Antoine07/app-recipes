@@ -18,6 +18,13 @@ import { RecipeDetailsComponent } from './recipe-details/recipe-details.componen
 // routing et navigation
 import { RecipesRoutingModule } from './/recipes-routing.module';
 
+// simuler un service HTTP
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
+
+// httpclient
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,9 +41,15 @@ import { RecipesRoutingModule } from './/recipes-routing.module';
     BrowserAnimationsModule,
     FormsModule,
     RecipesRoutingModule,
+    HttpClientModule,
+    // définir la base de données en mémoire dans le service simulé HTTP
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false, delay : 500  }
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 
 export class AppModule { }
+

@@ -1,42 +1,62 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from './recipes';
-import { MockRecipes } from './mock-recipes';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipesService {
-  recipes: Recipe[] = MockRecipes;
-  constructor() { }
+  // définition de l'url en fonction de laconstante recipes dans in-memory-data.service
+  private recipesUrl = 'api/recipes';
+  private countRecipesUrl = 'api/count'; // compter le nombre de recipes
 
-  getRecipes(): Recipe[] {
-    return this.recipes.sort((a, b) => { return a.stars - b.stars; });
+  constructor(private http: HttpClient) { }
+
+  getRecipes(): Observable<Recipe[]> {
+    return this.http.get<Recipe[]>(this.recipesUrl).pipe(
+      map((recipes) => {
+        // ordonner en fonction des stars
+        recipes.sort((a, b) => {
+          return a.stars - b.stars;
+        });
+
+        recipes.map(recipe => recipe.toggleState = () => {
+          recipe.state = recipe.state === 'active' ? 'inactive' : 'active';
+        });
+
+        return recipes;
+      })
+    );
   }
 
-  getRecipe(id: number): Recipe | null {
-    for (let recipe of this.recipes) {
-      if (recipe.id === id) return recipe;
-    }
+  getRecipe(id: number): Observable<Recipe> {
+    const url = `${this.recipesUrl}/${id}`;
 
-    return null;
+    return this.http.get<Recipe>(url).pipe(
+      map(recipe => { recipe.toggleState = () => { recipe.state = recipe.state === 'active' ? 'inactive' : 'active'; }; return recipe })
+    );
   }
 
-  search(word: string): Recipe[] {
+  search(word: string): Observable<Recipe[]> {
+    let re = new RegExp(word, 'g');
     let results: Recipe[] = [];
-    let re = new RegExp(word, 'g')
 
-    this.recipes.forEach(recipe => {
-      if (recipe.title.match(re)) {
-        console.log(recipe.title.match(re));
-        results.push(recipe);
-      }
-    });
+    return this.http.get<Recipe[]>(this.recipesUrl).pipe(
+      map(recipes => {
 
-    return results;
+        recipes.forEach(recipe => {
+          if (recipe.title.match(re).length == 1) results.push(recipe);
+        });
+
+        return results;
+      })
+    );
   }
 
-  count(): number {
-    return this.recipes.length || 0;
+  count(): Observable<number> {
+    return this.http.get<number>(this.countRecipesUrl);
   }
 
   /**
@@ -45,14 +65,23 @@ export class RecipesService {
    * @param start 
    * @param end 
    */
-  paginate(start: number, end: number): Recipe[] {
+  paginate(start: number, end: number): Observable<Recipe[]> {
 
-    let recipes: Recipe[] = [];
+    let Recipes: Recipe[] = [];
 
-    for (let i = start; i < end + start; i++) {
-      if (this.recipes[i] != null) recipes.push(this.recipes[i]);
-    }
+    return this.http.get<Recipe[]>(this.recipesUrl).pipe(
+      map(recipes => {
 
-    return recipes;
+        recipes.map(recipe => recipe.toggleState = () => {
+          recipe.state = recipe.state === 'active' ? 'inactive' : 'active';
+        });
+
+        for (let i = start; i < end + start; i++) {
+          Recipes.push(recipes[i]);
+        }
+
+        return Recipes;
+      })
+    );
   }
 }

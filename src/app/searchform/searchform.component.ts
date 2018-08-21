@@ -20,6 +20,11 @@ export class SearchformComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.submitted = true;
-    this.results.emit(this.rS.search(form.value['word']));
+    this.rS.search(form.value['word']).subscribe(
+      recipes => {
+        this.results.emit(recipes);
+      }
+    );
+
   }
 }
