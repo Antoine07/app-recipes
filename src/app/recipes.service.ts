@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Recipe } from './recipes';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +32,7 @@ export class RecipesService {
   }
 
   getRecipe(id: number): Observable<Recipe> {
-    const url = `${this.recipesUrl}/${id}`;
+    const url = `${this.recipesUrl}/${id}`; // api permet ce genre de requête
 
     return this.http.get<Recipe>(url).pipe(
       map(recipe => { recipe.toggleState = () => { recipe.state = recipe.state === 'active' ? 'inactive' : 'active'; }; return recipe })
@@ -68,21 +68,16 @@ export class RecipesService {
    * @param end 
    */
   paginate(start: number, end: number): Observable<Recipe[]> {
-
-    let Recipes: Recipe[] = [];
-
+    console.log(`start : ${start}, end : ${end}`)
     return this.http.get<Recipe[]>(this.recipesUrl).pipe(
+      
       map(recipes => {
-
+        // on doit ajouter la méthode toggleState à l'objet 
         recipes.map(recipe => recipe.toggleState = () => {
           recipe.state = recipe.state === 'active' ? 'inactive' : 'active';
         });
-
-        for (let i = start; i < end + start; i++) {
-          Recipes.push(recipes[i]);
-        }
-
-        return Recipes;
+        // slide pour la pagination on ordonne avant par rapport au stars
+        return recipes.sort((a, b) => { return a.stars - b.stars }).slice(start, (end + start));
       })
     );
   }

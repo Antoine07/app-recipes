@@ -44,7 +44,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     // définir la base de données en mémoire dans le service simulé HTTP
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false, delay : 500  }
+      InMemoryDataService, { dataEncapsulation: false }
     )
   ],
   providers: [],
