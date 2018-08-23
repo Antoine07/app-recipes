@@ -3,13 +3,11 @@
  */
 
 import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { Recipe } from './recipes';
+import { DataRecipe } from './recipes';
 
 export class InMemoryDataService implements InMemoryDbService {
     createDb() {
-        let count = 0;
-
-        const recipes: Recipe[] = [
+        const recipes: DataRecipe[] = [
             {
                 id: 1,
                 url: "http://placehold.it/600/92c952",
@@ -19,10 +17,7 @@ export class InMemoryDataService implements InMemoryDbService {
                 state: "inactive",
                 author: "Ervin Howell",
                 title: "Le grand Veggie",
-                description: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
-                toggleState() {
-                    this.state = this.state === 'active' ? 'inactive' : 'active';
-                }
+                description: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
             },
             {
                 id: 2,
@@ -33,10 +28,7 @@ export class InMemoryDataService implements InMemoryDbService {
                 state: "inactive",
                 author: "Alan Job",
                 title: "Salade Summer Veggie",
-                description: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
-                toggleState() {
-                    this.state = this.state === 'active' ? 'inactive' : 'active';
-                }
+                description: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
             },
             {
                 id: 3,
@@ -47,10 +39,7 @@ export class InMemoryDataService implements InMemoryDbService {
                 state: "inactive",
                 author: "Guillaume",
                 title: "Roasted vegetable",
-                description: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
-                toggleState() {
-                    this.state = this.state === 'active' ? 'inactive' : 'active';
-                }
+                description: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
             },
             {
                 id: 4,
@@ -61,10 +50,7 @@ export class InMemoryDataService implements InMemoryDbService {
                 state: "inactive",
                 author: "Tony",
                 title: "Vegetables with olives",
-                description: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
-                toggleState() {
-                    this.state = this.state === 'active' ? 'inactive' : 'active';
-                }
+                description: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
             },
             {
                 id: 5,
@@ -75,10 +61,7 @@ export class InMemoryDataService implements InMemoryDbService {
                 state: "inactive",
                 author: "Tony",
                 title: "Summer vegetables",
-                description: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
-                toggleState() {
-                    this.state = this.state === 'active' ? 'inactive' : 'active';
-                }
+                description: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
             }, {
                 id: 6,
                 url: "http://placehold.it/600/92c952",
@@ -88,10 +71,7 @@ export class InMemoryDataService implements InMemoryDbService {
                 state: "inactive",
                 author: "Alan Turing",
                 title: "Italian Oven Roasted vegetables",
-                description: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
-                toggleState() {
-                    this.state = this.state === 'active' ? 'inactive' : 'active';
-                }
+                description: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
             }
             , {
                 id: 7,
@@ -102,10 +82,7 @@ export class InMemoryDataService implements InMemoryDbService {
                 state: "inactive",
                 author: "Robert",
                 title: "Italian Oven Roasted",
-                description: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
-                toggleState() {
-                    this.state = this.state === 'active' ? 'inactive' : 'active';
-                }
+                description: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
             }
             , {
                 id: 8,
@@ -116,14 +93,10 @@ export class InMemoryDataService implements InMemoryDbService {
                 state: "inactive",
                 author: "Albert",
                 title: "New Roasted vegetables",
-                description: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
-                toggleState() {
-                    this.state = this.state === 'active' ? 'inactive' : 'active';
-                }
+                description: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
             },
         ];
-        
-        count = recipes.length;
+        const count = recipes.length;
 
         return { recipes, count };
     }

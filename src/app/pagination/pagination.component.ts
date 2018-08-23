@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RecipesService } from '../recipes.service';
 import { Recipe } from '../recipes';
+import { Observable, Subject } from 'rxjs';
 
 // définition de la pagination qui sera émit par le component à son parent
 class Paginate {
@@ -16,7 +17,7 @@ class Paginate {
 export class PaginationComponent implements OnInit {
 
   @Input() recipes: Recipe[];
-  @Output() changePage: EventEmitter<Paginate> = new EventEmitter();;
+  @Output() changePage: EventEmitter<Paginate> = new EventEmitter();
 
   pages: number[] = []; // numéro des pages
   itemsPerpage: number = 5; // fixer le nombre de recettes par page
@@ -25,6 +26,7 @@ export class PaginationComponent implements OnInit {
   currentPage: number;
 
   constructor(private rS: RecipesService) {
+    this.rS.changePaginate.subscribe(page => this.currentPage = page);
   }
 
   ngOnInit() {
@@ -58,6 +60,7 @@ export class PaginationComponent implements OnInit {
     } else {
       this.currentPage++;
     }
+    this.rS.sendNumberPage(this.currentPage); // notifier les autres components
     this.changePage.emit(this.paginate(this.currentPage)); // émettre la page courante
   }
 
@@ -67,11 +70,13 @@ export class PaginationComponent implements OnInit {
     } else {
       this.currentPage--;
     }
+    this.rS.sendNumberPage(this.currentPage); // notifier les autres components
     this.changePage.emit(this.paginate(this.currentPage));
   }
 
   selectedPage(page: number) {
     this.currentPage = page;
+    this.rS.sendNumberPage(page); // notifier les autres components
     this.changePage.emit(this.paginate(this.currentPage));
   }
 

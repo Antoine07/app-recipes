@@ -15,8 +15,6 @@ export class CommentsComponent implements OnInit {
 
   ngOnInit() {
     this.comments = this.cS.getComments();
-
-    console.log(this.comments);
   }
 
 }

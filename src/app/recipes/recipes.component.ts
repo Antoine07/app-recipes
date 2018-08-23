@@ -52,7 +52,11 @@ export class RecipesComponent implements OnInit {
 
   ngOnInit() {
     this.showRecipe = null;
-    this.rS.paginate(0, 5).subscribe(recipes => this.recipes = recipes);
+    this.rS.paginate(0, 5).subscribe(
+      recipes => this.recipes = recipes,
+      error => console.error(error),
+      () => console.log('Terminé !')
+    );
     this.title_component = this.route.snapshot.data.title_component; // récupérez le titre 
   }
 
@@ -81,7 +85,10 @@ export class RecipesComponent implements OnInit {
   }
 
   changePage($event) {
-    this.rS.paginate($event.start, $event.limit).subscribe(recipes => this.recipes = recipes);
+    this.rS.paginate($event.start, $event.limit).subscribe(
+      recipes => this.recipes = recipes,
+      error => console.error(`Chagement de page dans la pagination ${error} `)
+    );
   }
 
 }

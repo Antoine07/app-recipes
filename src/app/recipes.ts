@@ -2,8 +2,8 @@
  * Structure de données de nos recettes
  */
 
-export class Recipe {
-    id?: number ;
+export class DataRecipe {
+    id?: number;
     stars: number = 0;
     title: string;
     published_at: string;
@@ -12,10 +12,13 @@ export class Recipe {
     url?: string;
     thumbnailUrl?: string;
     state: string = 'inactive';
+}
 
-    // gestion de l'animation
+export class Recipe extends DataRecipe {
+    // gestion de l'animation state
     toggleState() {
         this.state = this.state === 'active' ? 'inactive' : 'active';
     }
 }
+
 

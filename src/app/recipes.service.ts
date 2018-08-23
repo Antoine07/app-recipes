@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from './recipes';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipesService {
-  // définition de l'url en fonction de laconstante recipes dans in-memory-data.service
+  // définition des urls permettant la récupération des données
   private recipesUrl = 'api/recipes';
-  private countRecipesUrl = 'api/count'; // compter le nombre de recipes
+  // url permettant de récupérer le nombre de recette
+  private countRecipesUrl = 'api/count'; 
+
+  changePaginate = new Subject<number>(); // pour mettre à jour la pagination 
 
   constructor(private http: HttpClient) { }
 
@@ -68,17 +71,21 @@ export class RecipesService {
    * @param end 
    */
   paginate(start: number, end: number): Observable<Recipe[]> {
-    console.log(`start : ${start}, end : ${end}`)
+
     return this.http.get<Recipe[]>(this.recipesUrl).pipe(
-      
       map(recipes => {
         // on doit ajouter la méthode toggleState à l'objet 
         recipes.map(recipe => recipe.toggleState = () => {
           recipe.state = recipe.state === 'active' ? 'inactive' : 'active';
         });
         // slide pour la pagination on ordonne avant par rapport au stars
-        return recipes.sort((a, b) => { return a.stars - b.stars }).slice(start, (end + start));
+        return recipes.sort((a, b) => { return b.stars - a.stars }).slice(start, (end + start));
       })
     );
+  }
+
+
+  sendNumberPage(page: number): void {
+    return this.changePaginate.next(page);
   }
 }
